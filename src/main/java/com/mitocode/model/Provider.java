@@ -15,23 +15,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-//@Table(name = "lgb_categtory")
-public class Category {
+public class Provider {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@SequenceGenerator(name="secuena de la base de datos")
-	 @EqualsAndHashCode.Include
-	private Integer idCategory;
+	@EqualsAndHashCode.Include
+	private Integer idProvider;
 	
-	//@Column(name = "name_category" , nullable = false,length = 50)
-	@Column(nullable = false,length = 50)
+	@Column(length = 30, nullable = false)
 	private String name;
 	
-	@Column(nullable = false,length = 50)
-	private String description;
+	@Column(length = 150, nullable = false)
+	private String address;
 	
 	@Column(nullable = false)
 	private boolean enabled;
-
 }
