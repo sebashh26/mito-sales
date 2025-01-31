@@ -17,6 +17,7 @@ import com.mitocode.model.Category;
 import com.mitocode.service.ICategoryService;
 
 import lombok.RequiredArgsConstructor;
+
 @RestController//todo controlador debe tenerlo asi se define un servicio rest, no es necesirio esteriotiparle
 @RequestMapping("/categories")//debe tenerlo para clocar el path
 //@AllArgsConstructor
@@ -24,8 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class CategoryController {
 	
 	//@Autowired
-	private final ICategoryService categoryService;
-	
+	private final ICategoryService categoryService;	
 	
 	@GetMapping
 	public ResponseEntity<List<Category>> readAll() throws Exception{		
