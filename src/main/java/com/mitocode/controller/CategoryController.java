@@ -1,7 +1,8 @@
-package com.mitocode.controller;
+ package com.mitocode.controller;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mitocode.dto.CategoryDTO;
 import com.mitocode.model.Category;
 import com.mitocode.service.ICategoryService;
 
@@ -27,16 +29,32 @@ public class CategoryController {
 	//@Autowired
 	private final ICategoryService categoryService;	
 	
+	private final ModelMapper mapper;
+	
 	@GetMapping
-	public ResponseEntity<List<Category>> readAll() throws Exception{		
-		List<Category>list = categoryService.readAll();
+	public ResponseEntity<List<CategoryDTO>> readAll() throws Exception{	
+		
+		/*List<CategoryDTO> list = categoryService.readAll().stream().map(e -> {
+			CategoryDTO dto = new CategoryDTO();
+			dto.setIdCategory(e.getIdCategory());
+			dto.setNameCategory(e.getName());
+			dto.setDescriptionCategory(e.getDescription());
+			dto.setEnabledCategory(e.isEnabled());
+			return dto;
+		}).toList();*/
+		
+	//List<CategoryRecord> list = categoryService.readAll().stream().map(e-> new CategoryRecord(e.getIdCategory(), e.getName(), e.getDescription(), e.isEnabled())).toList();// use with record
+	List<CategoryDTO> list = categoryService.readAll().stream().map(e-> mapper.map(e, CategoryDTO.class)).toList();//withoutrecord, model mapper not support records
+	
+	
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Category> readById(@PathVariable("id") Integer id) throws Exception{
+	public ResponseEntity<CategoryDTO> readById(@PathVariable("id") Integer id) throws Exception{
 		Category category =  categoryService.readById(id);
-		return new ResponseEntity<>(category, HttpStatus.OK);
+		CategoryDTO dto = mapper.map(category, CategoryDTO.class);
+		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
 	@PostMapping
