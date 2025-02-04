@@ -25,10 +25,10 @@ public class Product {
 	@EqualsAndHashCode.Include
 	private Integer idProduct;
 	
-	@ManyToOne//many to one pensar en FK, muchos productos le pueden pertener a una categoria
-	//@JoinColumn(name = "idClient", nullable = false, foreignKey = @ForeignKey(name = "FK_PRODUCT_Client"))
-	@JoinColumn(name = "id_Client", nullable = false, foreignKey = @ForeignKey(name = "FK_PRODUCT_Client"))
-	private Client Client;
+	@ManyToOne //FK /many to one pensar en FK, muchos productos le pueden pertener a una categoria
+	//@JoinColumn(name = "idCategory", nullable = false, foreignKey = @ForeignKey(name = "FK_PRODUCT_CATEGORY"))
+    @JoinColumn(name = "id_category", nullable = false, foreignKey = @ForeignKey(name = "FK_PRODUCT_CATEGORY"))
+    private Category category;
 	
 	@Column(length = 50, nullable = false)
 	private String name;

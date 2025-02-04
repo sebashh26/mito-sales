@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class CategoryDTO {
 	
 	private Integer idCategory;
-	private String nameCategory;
+	private String nameofCategory;
 	private String descriptionCategory;
 	private boolean enabledCategory;
 }

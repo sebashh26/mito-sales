@@ -21,7 +21,7 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//@SequenceGenerator(name="secuena de la base de datos")
-	 @EqualsAndHashCode.Include
+	@EqualsAndHashCode.Include
 	private Integer idCategory;
 	
 	//@Column(name = "name_category" , nullable = false,length = 50)
