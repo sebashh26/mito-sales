@@ -70,6 +70,7 @@ public class CategoryController {
 	@PutMapping("/{id}")
 	public ResponseEntity<CategoryDTO> update(@Valid @RequestBody CategoryDTO dto, @PathVariable("id") Integer id)
 			throws Exception {
+		//dto.setIdCategory(id);//asi o con java refletion en el crud
 		Category obj = categoryService.update(convertToEntity(dto), id);
 		return new ResponseEntity<>(convertToDto(obj), HttpStatus.OK);
 	}
