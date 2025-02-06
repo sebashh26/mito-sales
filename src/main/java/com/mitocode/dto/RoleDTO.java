@@ -2,7 +2,6 @@ package com.mitocode.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,21 +9,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDTO {
-	
-	
-	private Integer idCategory;
-	
-	@NotNull
-	@NotEmpty
-	@Size(min = 3, max = 50)
-	private String nameofCategory;
+public class RoleDTO {
+
+	private Integer idRole;
 	
 	@NotNull
 	@NotEmpty
-	@Size(min = 3, max = 50)
-	private String descriptionCategory;
+	private String nameRole;
 	
 	@NotNull
-	private boolean enabledCategory;
+	private String enabledRole;
+	
 }

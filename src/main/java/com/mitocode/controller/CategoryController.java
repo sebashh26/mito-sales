@@ -19,6 +19,7 @@ import com.mitocode.dto.CategoryDTO;
 import com.mitocode.model.Category;
 import com.mitocode.service.ICategoryService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController // todo controlador debe tenerlo asi se define un servicio rest, no es necesirio
@@ -61,13 +62,13 @@ public class CategoryController {
 	}
 
 	@PostMapping
-	public ResponseEntity<CategoryDTO> create(@RequestBody CategoryDTO dto) throws Exception {
+	public ResponseEntity<CategoryDTO> create(@Valid @RequestBody CategoryDTO dto) throws Exception {
 		Category obj = categoryService.save(this.convertToEntity(dto));
 		return new ResponseEntity<>(this.convertToDto(obj), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<CategoryDTO> update(@RequestBody CategoryDTO dto, @PathVariable("id") Integer id)
+	public ResponseEntity<CategoryDTO> update(@Valid @RequestBody CategoryDTO dto, @PathVariable("id") Integer id)
 			throws Exception {
 		Category obj = categoryService.update(convertToEntity(dto), id);
 		return new ResponseEntity<>(convertToDto(obj), HttpStatus.OK);

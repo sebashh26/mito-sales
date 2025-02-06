@@ -10,21 +10,21 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDTO {
+public class ProviderDTO {
 	
-	
-	private Integer idCategory;
-	
-	@NotNull
-	@NotEmpty
-	@Size(min = 3, max = 50)
-	private String nameofCategory;
+	private Integer idProvider;
 	
 	@NotNull
 	@NotEmpty
-	@Size(min = 3, max = 50)
-	private String descriptionCategory;
+	@Size(min = 2)
+	private String nameProvider;
 	
 	@NotNull
-	private boolean enabledCategory;
+	@NotEmpty
+	@Size(min = 3)
+	private String addressProvider;
+	
+	@NotNull
+	private boolean enabledProvider;
+
 }

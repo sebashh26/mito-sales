@@ -15,60 +15,60 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mitocode.dto.ProductDTO;
-import com.mitocode.model.Product;
-import com.mitocode.service.IProductService;
+import com.mitocode.dto.RoleDTO;
+import com.mitocode.model.Role;
+import com.mitocode.service.IRoleService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController 
-@RequestMapping("/products") // debe tenerlo para clocar el path
+@RequestMapping("/roles") // debe tenerlo para clocar el path
 @RequiredArgsConstructor // den ser final la variable para usarla
-public class ProductController {
+public class RoleController {
 
-	private final IProductService productService;
+	private final IRoleService roleService;
 
-	@Qualifier("productMapper")
+	@Qualifier("defaultMapper")
 	private final ModelMapper mapper;
 
 	@GetMapping
-	public ResponseEntity<List<ProductDTO>> readAll() throws Exception {
-		List<ProductDTO> list = productService.readAll().stream().map(this::convertToDto).toList();
+	public ResponseEntity<List<RoleDTO>> readAll() throws Exception {
+		List<RoleDTO> list = roleService.readAll().stream().map(this::convertToDto).toList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ProductDTO> readById(@PathVariable("id") Integer id) throws Exception {
-		Product product = productService.readById(id);
-		return new ResponseEntity<>(this.convertToDto(product), HttpStatus.OK);
+	public ResponseEntity<RoleDTO> readById(@PathVariable("id") Integer id) throws Exception {
+		Role role = roleService.readById(id);
+		return new ResponseEntity<>(this.convertToDto(role), HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<ProductDTO> create(@Valid @RequestBody ProductDTO dto) throws Exception {
-		Product obj = productService.save(this.convertToEntity(dto));
+	public ResponseEntity<RoleDTO> create(@Valid @RequestBody RoleDTO dto) throws Exception {
+		Role obj = roleService.save(this.convertToEntity(dto));
 		return new ResponseEntity<>(this.convertToDto(obj), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ProductDTO> update(@Valid @RequestBody ProductDTO dto, @PathVariable("id") Integer id)
+	public ResponseEntity<RoleDTO> update(@Valid @RequestBody RoleDTO dto, @PathVariable("id") Integer id)
 			throws Exception {
-		Product obj = productService.update(convertToEntity(dto), id);
+		Role obj = roleService.update(convertToEntity(dto), id);
 		return new ResponseEntity<>(convertToDto(obj), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) throws Exception {
-		productService.delete(id);
+		roleService.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	private ProductDTO convertToDto(Product product) {
-		return mapper.map(product, ProductDTO.class);
+	private RoleDTO convertToDto(Role role) {
+		return mapper.map(role, RoleDTO.class);
 	}
 
-	private Product convertToEntity(ProductDTO productDTO) {
-		return mapper.map(productDTO, Product.class);
+	private Role convertToEntity(RoleDTO roleDTO) {
+		return mapper.map(roleDTO, Role.class);
 	}
 
 }
