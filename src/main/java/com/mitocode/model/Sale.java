@@ -44,7 +44,7 @@ public class Sale {
 	@Column(nullable = false)
 	private LocalDateTime dateTime;
 	
-	@Column(columnDefinition = "decimal(6,2)", nullable = false)
+	@Column(columnDefinition = "decimal(7,2)", nullable = false)
 	private double total;
 	
 	@Column(columnDefinition = "decimal(6,2)", nullable = false)
