@@ -1,5 +1,7 @@
 package com.mitocode.service;
 
+import java.util.List;
+
 import com.mitocode.model.Category;
 
 public interface ICategoryService extends ICRUD<Category, Integer>{
@@ -13,4 +15,10 @@ public interface ICategoryService extends ICRUD<Category, Integer>{
 	Category readById(Integer id) throws Exception;
 
 	void delete(Integer id) throws Exception;*/
+	
+	List<Category> findByName(String name);
+	
+	List<Category> findByNameLike(String name);
+	
+	List<Category> findByNameOrEnabled(String name, boolean enabled);
 }

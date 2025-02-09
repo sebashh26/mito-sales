@@ -80,7 +80,26 @@ public class CategoryController {
 		categoryService.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-
+	
+	////////////////////////queries//////////////////
+	@GetMapping("/find/name/{name}")
+	public ResponseEntity<List<CategoryDTO>> findByName(@PathVariable("name") String name){
+		List<CategoryDTO> list = categoryService.findByName(name).stream().map(this::convertToDto).toList();
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("/find/name/like/{name}")
+	public ResponseEntity<List<CategoryDTO>> findByNameLike(@PathVariable("name") String name){
+		List<CategoryDTO> list = categoryService.findByNameLike(name).stream().map(this::convertToDto).toList();
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("/find/name/{name}/{enabled}")
+	public ResponseEntity<List<CategoryDTO>> findByNameOrEabled(@PathVariable("name") String name, @PathVariable("enabled") boolean enabled){
+		List<CategoryDTO> list = categoryService.findByNameOrEnabled(name,enabled).stream().map(this::convertToDto).toList();
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
 	private CategoryDTO convertToDto(Category category) {
 		return mapper.map(category, CategoryDTO.class);
 	}

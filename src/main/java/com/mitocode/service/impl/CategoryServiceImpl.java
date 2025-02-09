@@ -1,5 +1,7 @@
 package com.mitocode.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.mitocode.model.Category;
@@ -18,6 +20,21 @@ public class CategoryServiceImpl extends CRUDImpl<Category, Integer> implements 
 	@Override
 	public IGenericRepo<Category, Integer> getRepo() {
 		return categoryRepo;
+	}
+
+	@Override
+	public List<Category> findByName(String name) {
+		return categoryRepo.findByName(name);
+	}
+
+	@Override
+	public List<Category> findByNameLike(String name) {
+		return categoryRepo.findByNameLike("%" +name+ "%");
+	}
+
+	@Override
+	public List<Category> findByNameOrEnabled(String name, boolean enabled) {
+		return categoryRepo.findByNameOrEnabled(name, enabled);
 	}
 
 	
