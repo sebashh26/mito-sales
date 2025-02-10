@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mitocode.dto.ProcedureDTO;
 import com.mitocode.dto.SaleDTO;
 import com.mitocode.model.Sale;
+import com.mitocode.service.IProcedureDTO;
 import com.mitocode.service.ISaleService;
 
 import jakarta.validation.Valid;
@@ -54,6 +56,7 @@ public class SaleController {
 	public ResponseEntity<SaleDTO> update(@Valid @RequestBody SaleDTO dto, @PathVariable("id") Integer id)
 			throws Exception {
 		Sale obj = saleService.update(convertToEntity(dto), id);
+		
 		return new ResponseEntity<>(convertToDto(obj), HttpStatus.OK);
 	}
 
@@ -61,6 +64,16 @@ public class SaleController {
 	public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) throws Exception {
 		saleService.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("/resume")
+	public ResponseEntity<List<ProcedureDTO>> getSaleResume() throws Exception {
+		return new ResponseEntity<>(saleService.callProcedure1(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/resume2")
+	public ResponseEntity<List<IProcedureDTO>> getSaleResume2() throws Exception {
+		return new ResponseEntity<>(saleService.callProcedure2(), HttpStatus.OK);
 	}
 
 	private SaleDTO convertToDto(Sale sale) {

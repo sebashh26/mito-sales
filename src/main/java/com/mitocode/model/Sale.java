@@ -41,7 +41,7 @@ public class Sale {
 	@OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)//atributo por el q se hace el match,RELACION DE MAESTRO DETALLE INSERTARA DE GOLPE LA VENTA Y SUS ITEMS
 	private List<SaleDetail> details;
 	
-	@Column(nullable = false)
+	@Column(nullable = false)//iso calnedadr yyy mmm dd
 	private LocalDateTime dateTime;
 	
 	@Column(columnDefinition = "decimal(7,2)", nullable = false)
