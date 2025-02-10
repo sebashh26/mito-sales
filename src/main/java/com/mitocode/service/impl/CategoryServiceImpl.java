@@ -37,6 +37,13 @@ public class CategoryServiceImpl extends CRUDImpl<Category, Integer> implements 
 		return categoryRepo.findByNameOrEnabled(name, enabled);
 	}
 
+	@Override
+	public List<Category> getNameAndDescription(String name, String description) {
+		return categoryRepo.getNameAndDescription2(name, description);
+	}
+
+	
+
 	
 	
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mitocode.dto.CategoryDTO;
@@ -99,6 +100,15 @@ public class CategoryController {
 		List<CategoryDTO> list = categoryService.findByNameOrEnabled(name,enabled).stream().map(this::convertToDto).toList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+	
+	@GetMapping("/get/name/description")
+	public ResponseEntity<List<CategoryDTO>> getNameAndDescription(@RequestParam("name") String name, @RequestParam("description") String description){
+		List<CategoryDTO> list = categoryService.getNameAndDescription(name, description).stream().map(this::convertToDto).toList();
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	
+	
 	
 	private CategoryDTO convertToDto(Category category) {
 		return mapper.map(category, CategoryDTO.class);

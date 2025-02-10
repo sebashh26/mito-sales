@@ -2,6 +2,9 @@ package com.mitocode.repo;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.mitocode.model.Category;
 
 public interface ICategoryRepo extends IGenericRepo<Category, Integer> {
@@ -42,6 +45,8 @@ public interface ICategoryRepo extends IGenericRepo<Category, Integer> {
 	
 	List<Category> findByIdCategoryLessThan(Integer id);
 	
+	//PARA ELIMINAR SON MAS ACOTADAS SOLO RECIBEN EL ID
+	
 	List<Category> findByIdCategoryLessThanEquals(Integer id);
 
 	List<Category> findByIdCategoryGreaterThan(Integer id);
@@ -53,4 +58,12 @@ public interface ICategoryRepo extends IGenericRepo<Category, Integer> {
 	List<Category> findByNameOrderByDescription(String name);
 	
 	List<Category> findByNameOrderByDescriptionAsc(String name);*/
+	
+	//JPQL JAVA PERSITENCE QUERY LAGUAJE/////////////////////////////
+	@Query("FROM  Category c where  c.name = :name and c.description like %:description%")//toma lo q tenga en entity sinno hay value toma el nombre de la clase
+	List<Category> getNameAndDescription1(@Param("name") String name,@Param("description") String description);
+	
+	@Query("SELECT new com.mitocode.model.Category(c.name, c.enabled) FROM  Category c where  c.name = :name and c.description like %:description%")//toma lo q tenga en entity sinno hay value toma el nombre de la clase
+	List<Category> getNameAndDescription2(@Param("name") String name,@Param("description") String description);
+
 }

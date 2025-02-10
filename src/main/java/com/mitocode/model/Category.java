@@ -18,6 +18,12 @@ import lombok.NoArgsConstructor;
 //@Table(name = "lgb_categtory")
 public class Category {
 	
+	public Category(String name, boolean enabled) {
+		super();
+		this.name = name;
+		this.enabled = enabled;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//@SequenceGenerator(name="secuena de la base de datos")
