@@ -2,6 +2,7 @@ package com.mitocode.repo;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -63,7 +64,18 @@ public interface ICategoryRepo extends IGenericRepo<Category, Integer> {
 	@Query("FROM  Category c where  c.name = :name and c.description like %:description%")//toma lo q tenga en entity sinno hay value toma el nombre de la clase
 	List<Category> getNameAndDescription1(@Param("name") String name,@Param("description") String description);
 	
+	
+	//@Query("FROM  Sale s where  s.client.fistName = :name and s.user.username= :username")
+	//toma lo q tenga en entity  @Entity(x) si no hay value toma el nombre de la clase xyz
 	@Query("SELECT new com.mitocode.model.Category(c.name, c.enabled) FROM  Category c where  c.name = :name and c.description like %:description%")//toma lo q tenga en entity sinno hay value toma el nombre de la clase
 	List<Category> getNameAndDescription2(@Param("name") String name,@Param("description") String description);
-
+	
+	//query native: como se lo haría en la base de datos
+	
+	@Query(value = "select * from category c where c.name= :name", nativeQuery = true)
+	List<Category> getNameSQL(@Param("name") String name);
+	
+	@Modifying//se usa para update, insert delete
+	@Query(value = "update category set name= :name", nativeQuery = true)
+	Integer updateName (@Param(value = "name") String name);
 }

@@ -23,4 +23,6 @@ public interface ICategoryService extends ICRUD<Category, Integer>{
 	List<Category> findByNameOrEnabled(String name, boolean enabled);
 	
 	List<Category> getNameAndDescription(String name, String description);
+	
+	List<Category> getNameSQL(String name);
 }

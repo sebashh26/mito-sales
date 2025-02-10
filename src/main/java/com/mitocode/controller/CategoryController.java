@@ -107,7 +107,11 @@ public class CategoryController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	
+	@GetMapping("/get/name/sql/{name}")
+	public ResponseEntity<List<CategoryDTO>> getNameSql(@PathVariable("name") String name){
+		List<CategoryDTO> list = categoryService.findByName(name).stream().map(this::convertToDto).toList();
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 	
 	
 	private CategoryDTO convertToDto(Category category) {
