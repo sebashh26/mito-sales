@@ -49,6 +49,10 @@ public class SaleServiceImpl extends CRUDImpl<Sale, Integer> implements ISaleSer
 		return saleRepo.callProcedure3();
 	}
 
+	@Override
+	public void callProcedure4() {
+		saleRepo.callProcedure4();
+	}
 	
 
 }

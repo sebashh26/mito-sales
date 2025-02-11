@@ -80,6 +80,12 @@ public class SaleController {
 	public ResponseEntity<List<ProcedureDTO>> getSaleResume3() throws Exception {
 		return new ResponseEntity<>(saleService.callProcedure3(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/resume4")
+	public ResponseEntity<Void> getSaleResume4() throws Exception {
+		saleService.callProcedure4();
+		return new ResponseEntity<>( HttpStatus.OK);
+	}
 
 	private SaleDTO convertToDto(Sale sale) {
 		return mapper.map(sale, SaleDTO.class);
