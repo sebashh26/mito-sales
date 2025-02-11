@@ -10,4 +10,6 @@ public interface ISaleService extends ICRUD<Sale, Integer>{
 	List<ProcedureDTO> callProcedure1();
 	
 	List<IProcedureDTO> callProcedure2();
+	
+	List<ProcedureDTO> callProcedure3();
 }

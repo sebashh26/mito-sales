@@ -1,6 +1,6 @@
 package com.mitocode.service;
 
-//es una proyeccion
+//es una proyeccion JPA PROJECTION
 public interface IProcedureDTO {
 
 	 Integer getQuantityfn();
