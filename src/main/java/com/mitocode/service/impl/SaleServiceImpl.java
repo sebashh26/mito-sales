@@ -80,6 +80,7 @@ public class SaleServiceImpl extends CRUDImpl<Sale, Integer> implements ISaleSer
 
 	@Override
 	public Map<String, Long> getSalesCountBySeller() {
+		//data base: select u.user_name, COUNT(s.*) from sale s, user_data u where s.id_user=u.id_user group by u.user_name
 		Map<String, Long> mapByUser = saleRepo.findAll().stream().collect(Collectors.groupingBy(s -> s.getUser().getUserName(), Collectors.counting()));		
 		return mapByUser;
 	}
