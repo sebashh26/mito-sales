@@ -30,4 +30,5 @@ public interface ISaleRepo extends IGenericRepo<Sale, Integer> {
 	//invoke only procedure no function
 	@Procedure(procedureName = "pr_sales")
 	void callProcedure4();
+	
 }

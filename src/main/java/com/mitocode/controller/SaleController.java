@@ -1,6 +1,7 @@
 package com.mitocode.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -85,6 +86,24 @@ public class SaleController {
 	public ResponseEntity<Void> getSaleResume4() throws Exception {
 		saleService.callProcedure4();
 		return new ResponseEntity<>( HttpStatus.OK);
+	}
+	
+	@GetMapping("/mostexpensive")
+	public ResponseEntity<SaleDTO> getMostExpemsive() throws Exception {
+		SaleDTO dto = this.convertToDto(saleService.getSaleMostExpensive());
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
+	
+	@GetMapping("/bestsellerperson")
+	public ResponseEntity<String> getBestSellerPerson() throws Exception {
+		String string= saleService.getBestSellerPerson();
+		return new ResponseEntity<>(string, HttpStatus.OK);
+	}
+	
+	@GetMapping("/sellercount")
+	public ResponseEntity<Map<String, Long>> getBestSellerCount() throws Exception {
+		Map<String, Long> map= saleService.getSalesCountBySeller();
+		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
 	private SaleDTO convertToDto(Sale sale) {

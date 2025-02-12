@@ -1,7 +1,11 @@
 package com.mitocode.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -52,6 +56,32 @@ public class SaleServiceImpl extends CRUDImpl<Sale, Integer> implements ISaleSer
 	@Override
 	public void callProcedure4() {
 		saleRepo.callProcedure4();
+	}
+
+	@Override
+	public Sale getSaleMostExpensive() {
+		return saleRepo.findAll().stream().max(Comparator.comparing(Sale::getTotal)).orElseGet(Sale:: new);
+	}
+
+	@Override
+	public String getBestSellerPerson() {
+		//Map<String, Double> mapSales = saleRepo.findAll().stream().collect(Collectors.groupingBy(e -> e.getUser().getUserName(), Collectors.summingDouble(e -> e.getTotal())));
+		//*-------------------1------------------
+//		Stream<Sale> stream=saleRepo.findAll().stream();
+//		Map<Integer, List<Sale>> mapSales = stream.collect(Collectors.groupingBy(Sale::getIdSale));
+		//---------------------2-----------------
+		//en base sería así: select u.user_name, sum(s.total)from sale s, user_data u where s.id_user=u.id_user group by u.user_name
+		Map<String, Double> mapByUser = saleRepo.findAll().stream().collect(Collectors.groupingBy(e -> e.getUser().getUserName(), 
+				Collectors.summingDouble(Sale::getTotal)));
+		
+		return Collections.max(mapByUser.entrySet(), Comparator.comparingDouble(Map.Entry::getValue)).getKey();
+		
+	}
+
+	@Override
+	public Map<String, Long> getSalesCountBySeller() {
+		Map<String, Long> mapByUser = saleRepo.findAll().stream().collect(Collectors.groupingBy(s -> s.getUser().getUserName(), Collectors.counting()));		
+		return mapByUser;
 	}
 	
 

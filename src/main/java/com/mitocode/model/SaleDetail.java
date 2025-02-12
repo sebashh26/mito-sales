@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -28,6 +29,7 @@ public class SaleDetail {
 	
 	@ManyToOne
 	@JoinColumn(name="id_sale", nullable = false, foreignKey = @ForeignKey(name="FK_DETAIL_SALE"))
+	@ToString.Exclude//for can grouping
 	private Sale sale;
 	
 	@ManyToOne
