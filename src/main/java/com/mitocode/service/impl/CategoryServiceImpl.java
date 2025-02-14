@@ -2,6 +2,10 @@ package com.mitocode.service.impl;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.mitocode.model.Category;
@@ -45,6 +49,19 @@ public class CategoryServiceImpl extends CRUDImpl<Category, Integer> implements 
 	@Override
 	public List<Category> getNameSQL(String name) {
 		return categoryRepo.getNameSQL(name);
+	}
+
+	@Override
+	public Page<Category> findPage(Pageable pageable) {
+		
+		return categoryRepo.findAll(pageable);
+		
+	}
+
+	@Override
+	public List<Category> findAllOrder(String param) {
+		Sort.Direction direction = param.equalsIgnoreCase("ASC")? Sort.Direction.ASC:Direction.DESC;
+		return categoryRepo.findAll(Sort.by(direction, "name"));
 	}
 
 	

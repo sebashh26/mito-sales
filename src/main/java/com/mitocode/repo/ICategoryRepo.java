@@ -2,6 +2,8 @@ package com.mitocode.repo;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -78,4 +80,5 @@ public interface ICategoryRepo extends IGenericRepo<Category, Integer> {
 	@Modifying//se usa para update, insert delete
 	@Query(value = "update category set name= :name", nativeQuery = true)
 	Integer updateName (@Param(value = "name") String name);
+	
 }

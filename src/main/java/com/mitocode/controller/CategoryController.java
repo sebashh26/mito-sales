@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -113,6 +116,25 @@ public class CategoryController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
+	
+	@GetMapping("/pagination")
+	public ResponseEntity<Page<CategoryDTO>> findPage(Pageable pageable){
+		Page<CategoryDTO>  pageCategoryDTO = categoryService.findPage(pageable).map(this::convertToDto);
+		return new ResponseEntity<>(pageCategoryDTO,HttpStatus.OK);
+	}
+	
+	@GetMapping("/pagination2")
+	public ResponseEntity<Page<CategoryDTO>> findPage(@RequestParam(name = "p",defaultValue = "0") int page, @RequestParam(name = "s",defaultValue = "3") int size){
+		PageRequest pageRequest=  PageRequest.of(page, size);
+		Page<CategoryDTO>  pageCategoryDTO = categoryService.findPage(pageRequest).map(this::convertToDto);
+		return new ResponseEntity<>(pageCategoryDTO,HttpStatus.OK);
+	}
+	
+	@GetMapping("/order")
+	public ResponseEntity<List<CategoryDTO>> findAllOrder(String param){
+		List<CategoryDTO> list = categoryService.findAllOrder(param).stream().map(this::convertToDto).toList();
+		return new ResponseEntity<>(list,HttpStatus.OK);
+	}
 	
 	private CategoryDTO convertToDto(Category category) {
 		return mapper.map(category, CategoryDTO.class);
