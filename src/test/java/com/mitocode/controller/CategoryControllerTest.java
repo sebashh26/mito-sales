@@ -96,7 +96,7 @@ class CategoryControllerTest {
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders 
 		.post("/categories")
 		.contentType(MediaType.APPLICATION_JSON)
-		.content(objectMapper.writeValueAsString(CATEGORYDTO_3));//escribe el string en formato de json, se puede utilizar tambien GSON, O LO DEL MISMO spring me brindas
+		.content(objectMapper.writeValueAsString(CATEGORYDTO_3));//escribe el string en formato de json, se puede utilizar tambien GSON, O LO DEL MISMO spring me brinda
 		
 		mockMvcc.perform(builder)
 		.andExpect(status().isCreated())
