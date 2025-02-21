@@ -40,7 +40,8 @@ public class CategoryController {
 	@Qualifier("categoryMapper")
 	private final ModelMapper mapper;
 
-	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+	//@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+	@PreAuthorize("@authServiceImpl.hasAccess('/readAll')")
 	@GetMapping
 	public ResponseEntity<List<CategoryDTO>> readAll() throws Exception {
 
