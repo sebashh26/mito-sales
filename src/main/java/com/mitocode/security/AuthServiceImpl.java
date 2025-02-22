@@ -1,7 +1,6 @@
 package com.mitocode.security;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +12,15 @@ public class AuthServiceImpl {
 
 	public boolean hasAccess(String path) {
 		
-		boolean status = false;
+		boolean status = true;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();		
-		 //authentication.getAuthorities().forEach(e -> log.info(e.getAuthority()));
-		 GrantedAuthority role = authentication.getAuthorities().stream().findFirst().orElse(null);
-		if( role!=null && "ADMIN".equals(role.getAuthority())) {
-			status = true;
-		}
-		log.info(role.getAuthority());
+		 authentication.getAuthorities().forEach(e -> log.info(e.getAuthority()));
+//		 GrantedAuthority role = authentication.getAuthorities().stream().findFirst().orElse(null);
+//		if( role!=null && "ADMIN".equals(role.getAuthority())) {
+//			status = true;
+//		}
+		//log.info(role.getAuthority());
 		log.info(username);
 		return status;
 	}
