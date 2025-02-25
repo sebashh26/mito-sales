@@ -13,8 +13,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -26,6 +28,8 @@ import com.mitocode.exception.ModelNotFoundException;
 import com.mitocode.model.Category;
 import com.mitocode.service.ICategoryService;
 
+@ActiveProfiles("test")
+@AutoConfigureMockMvc(addFilters = false)
 @WebMvcTest(CategoryController.class)
 class CategoryControllerTest {
 	

@@ -1,5 +1,6 @@
 package com.mitocode.controller;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@Profile({"dev", "qa","prod"})
 public class LoginController {
 
 	private final AuthenticationManager authenticationManager;
@@ -29,6 +31,8 @@ public class LoginController {
 	public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest jwtRequest) throws Exception {
 		
 		authenticate(jwtRequest.getUserName(), jwtRequest.getPassword());
+		
+		//ver como cacheable this values para no volver a sacar de la bd
 		UserDetails userDetails = jwtUserDetailService.loadUserByUsername(jwtRequest.getUserName());
 		
 		String token =  jwtTokenUtil.generateToken(userDetails);
