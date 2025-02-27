@@ -58,7 +58,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/rest/**").permitAll()
                         .requestMatchers("/users/**").permitAll()
                         .requestMatchers("/roles/**").permitAll()
-                        //.requestMatchers("/categories/**").permitAll()
+                        .requestMatchers("/categories/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults()) //httpBasic()
