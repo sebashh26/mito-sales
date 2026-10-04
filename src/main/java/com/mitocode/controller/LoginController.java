@@ -45,6 +45,8 @@ public class LoginController {
 	private void authenticate(String username, String password) throws Exception{
         try {
         	//spring se encargar internamente si hace el macth
+			//internamente llama al UserDetailService pero en mi caso lo imlemente en JwtUserDetailService 
+			//donde carogo el usuario y la consulta
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
