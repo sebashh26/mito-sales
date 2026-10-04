@@ -33,6 +33,12 @@ public class LoginController {
 		authenticate(jwtRequest.getUserName(), jwtRequest.getPassword());
 		
 		//ver como cacheable this values para no volver a sacar de la bd
+		//en authenticate ya llamo una vez y en la siguienet linea lo estoy volviendo hacer y eso no es optimo podr´ria hacer lo suigueinte:
+		//Authentication authentication = authenticationManager.authenticate(
+        //new UsernamePasswordAuthenticationToken(jwtRequest.getUserName(), jwtRequest.getPassword())
+        //);
+    	// Aquí ya tienes el principal (UserDetails) sin volver a consultar la BD
+   		// UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		UserDetails userDetails = jwtUserDetailService.loadUserByUsername(jwtRequest.getUserName());
 		
 		String token =  jwtTokenUtil.generateToken(userDetails);
